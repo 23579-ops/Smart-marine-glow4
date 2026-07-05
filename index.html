@@ -1,204 +1,127 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-}
+<link rel="stylesheet" href="./style.css">
 
-body {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
+<div class="wrap">
+    <div id="home" class="card">
+        <div class="top-bar">
+            <div class="lang-selector">
+                <span onclick="changeLang('th')" id="lang-th" class="lang-btn active">TH</span> | 
+                <span onclick="changeLang('en')" id="lang-en" class="lang-btn">EN</span> | 
+                <span onclick="changeLang('cn')" id="lang-cn" class="lang-btn">CN</span>
+            </div>
+            <div class="bg-sound-btn" onclick="toggleMusic()">🎵 <span id="music-status">เปิดเสียงคลื่น</span></div>
+        </div>
 
-/* กล่องครอบการ์ดเกมทั้งหมด */
-.game-container {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  width: 100%;
-  max-width: 450px;
-  padding: 25px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  text-align: center;
-}
+        <div class="bubble" style="margin-top: 20px;">🏝️🐢🌊</div>
+        <h1 id="txt-title">Southern Eco-Explorer</h1>
+        <p id="txt-welcome">ยินดีต้อนรับผู้พิทักษ์ท่องเที่ยวภาคใต้<br>ร่วมสนุกตอบควิซ และสะสมแต้มอนุรักษ์ทะเลกัน!</p>
 
-/* ส่วนหัว */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
+        <div class="rank-container">
+            <div class="rank-title">🎖️ <span id="txt-rank-label">ฉายา</span>: <span id="user-rank" style="color: #ffd166;">นักท่องเที่ยวฝึกหัด</span></div>
+        </div>
 
-.emoji-group {
-  font-size: 24px;
-}
+        <div class="score-container">
+            <div id="scoreBadge" class="score">🌱 Eco Point : <span id="score">0</span></div>
+        </div>
 
-#lang-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-weight: bold;
-}
+        <div style="margin: 10px 0; font-size: 14px; color: #9bf6ff;">
+            📦 <span id="txt-vault-label">คลังการ์ดของคุณ</span>: <span id="card-count-home">0</span> / 8 <span id="txt-unit-card">ใบ</span>
+        </div>
 
-#game-title {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  background: linear-gradient(to right, #ffffff, #a8ff78);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        <button onclick="page('animal')" id="btn-nav-learning">📚 ศูนย์เรียนรู้สัตว์ทะเล (5 บท - 200 แต้ม)</button>
+        <button onclick="startQuiz()" id="btn-nav-quiz">🧩 ควิซรอบรู้ทะเลใต้ (30 ข้อ)</button>
+        <button onclick="page('scan-page')" id="btn-nav-gps">📸 สแกนจุดเช็คอิน GPS ภาคใต้ (12 ที่)</button>
+        <button onclick="page('gacha-page')" class="btn-gacha" id="btn-nav-gacha">🔮 สุ่มการ์ดสัตว์ทะเลหายาก (Gacha)</button>
+        <button onclick="page('collection-page')" style="background: linear-gradient(90deg, #4cc9f0, #4895ef);" id="btn-nav-album">🎴 สมุดสะสมการ์ด (My Collection)</button>
+        <button onclick="page('carbon')">✨ Smart Marine Glow</button>
+    </div>
 
-#game-subtitle {
-  font-size: 13px;
-  color: #cfd8dc;
-  line-height: 1.4;
-  margin-bottom: 15px;
-}
+    <div id="animal" class="card hide">
+        <h2 id="txt-learning-title">📚 ศูนย์เรียนรู้ระบบนิเวศใต้ทะเล</h2>
+        
+        <div class="chapter-tabs">
+            <button class="tab-btn active" onclick="switchChapter(0)" id="tab-ch1">บทที่ 1</button>
+            <button class="tab-btn" onclick="switchChapter(1)" id="tab-ch2">บทที่ 2</button>
+            <button class="tab-btn" onclick="switchChapter(2)" id="tab-ch3">บทที่ 3</button>
+            <button class="tab-btn" onclick="switchChapter(3)" id="tab-ch4">บทที่ 4</button>
+            <button class="tab-btn" onclick="switchChapter(4)" id="tab-ch5">บทที่ 5</button>
+        </div>
 
-.badge {
-  background: rgba(255, 209, 102, 0.15);
-  color: #ffd166;
-  display: inline-block;
-  padding: 6px 15px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255, 209, 102, 0.3);
-}
+        <div id="chapter-content" class="story-scroll"></div>
 
-.eco-point-box {
-  background: #ffd166;
-  color: #0f2027;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 25px;
-  display: inline-block;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(255, 209, 102, 0.3);
-}
+        <button id="btn-claim-chapter" onclick="claimChapterPoints()">อ่านจบแล้ว รับ Eco Point +40</button>
+        <button class="btn-secondary btn-back-lbl" onclick="back()">กลับหน้าหลัก</button>
+    </div>
 
-/* ปุ่มสุ่มกาชา */
-.btn-gacha {
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-  border: none;
-  color: white;
-  width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 15px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-  transition: transform 0.2s;
-}
+    <div id="quiz" class="card hide">
+        <h2>🧩 <span id="txt-quiz-title">Ocean Quiz</span> (<span id="quiz-number">1</span>/30)</h2>
+        <p id="quiz-question">Loading...</p>
+        <div id="quiz-options"></div>
+        <button class="btn-secondary" onclick="back()" style="margin-top: 20px;" id="btn-quiz-surrender">ยอมแพ้ และกลับหน้าหลัก</button>
+    </div>
 
-.btn-gacha:active {
-  transform: scale(0.98);
-}
+    <div id="scan-page" class="card hide">
+        <h2 id="txt-gps-title">📸 ระบบเช็คอินพิกัด GPS ทะเลใต้</h2>
+        <p id="txt-gps-desc">ระบบจะขอสิทธิ์เข้าถึงพิกัดปัจจุบันของคุณ เพื่อตรวจสอบว่าคุณอยู่ที่สถานที่ท่องเที่ยวจริงหรือไม่ในรัศมีทดสอบ!</p>
+        
+        <div class="story-scroll">
+            <h3 class="zone-title">📍 <span class="zone-pnp">โซนภูเก็ต-พังงา</span></h3>
+            <button onclick="scanLocation('อุทยานแห่งชาติหมู่เกาะสิมิลัน 🏝️', 20)" class="loc-similan">หมู่เกาะสิมิลัน (พังงา)</button>
+            <button onclick="scanLocation('แหลมพรหมเทพ 🌅', 20)" class="loc-promthep">แหลมพรหมเทพ (ภูเก็ต)</button>
+            <button onclick="scanLocation('อ่าวพังงา (เกาะตาปู) ⛰️', 20)" class="loc-phangnga">อ่าวพังงา (พังงา)</button>
+            
+            <h3 class="zone-title">📍 <span class="zone-krabi">โซนกระบี่</span></h3>
+            <button onclick="scanLocation('อ่าวมาหยา เกาะพีพี 🌊', 20)" class="loc-maya">อ่าวมาหยา (กระบี่)</button>
+            <button onclick="scanLocation('สระมรกต 🌲', 20)" class="loc-emerald">สระมรกต (กระบี่)</button>
+            <button onclick="scanLocation('ทะเลแหวก 🏝️', 20)" class="loc-separated">ทะเลแหวก (กระบี่)</button>
+            
+            <h3 class="zone-title">📍 <span class="zone-surat">โซนสุราษฎร์ธานี</span></h3>
+            <button onclick="scanLocation('เขื่อนเชี่ยวหลาน (เขาสก) ⛰️', 20)" class="loc-chiewlan">เขื่อนเชี่ยวหลาน (สุราษฎร์ธานี)</button>
+            <button onclick="scanLocation('เกาะเต่า (แหล่งดำน้ำ) 🪸', 20)" class="loc-taotech">เกาะเต่า (สุราษฎร์ธานี)</button>
+            <button onclick="scanLocation('เกาะสมุย (หินตาหินยาย) 🏝️', 20)" class="loc-samui">เกาะสมุย (หินตาหินยาย)</button>
+            
+            <h3 class="zone-title">📍 <span class="zone-satun">โซนสตูล-ตรัง</span></h3>
+            <button onclick="scanLocation('เกาะหลีเป๊ะ อุทยานฯ ตะรุเตา 🪸', 20)" class="loc-lipe">เกาะหลีเป๊ะ (สตูล)</button>
+            <button onclick="scanLocation('ถ้ำมรกต เกาะมุก 🌊', 20)" class="loc-emerald-cave">ถ้ำมรกต เกาะมุก (ตรัง)</button>
+            <button onclick="scanLocation('เกาะกระดาน (หาดสวยที่สุด) 🏖️', 20)" class="loc-kradan">เกาะกระดาน (ตรัง)</button>
+        </div>
+        <p style="font-size: 12px; color: #aaa;" id="txt-gps-note">*แต่ละสถานที่สามารถสแกนรับแต้มได้ครั้งเดียว</p>
+        <button class="btn-secondary btn-back-lbl" onclick="back()">กลับหน้าหลัก</button>
+    </div>
 
-.collection-count {
-  font-size: 12px;
-  color: #b0bec5;
-  margin-top: 10px;
-  margin-bottom: 25px;
-}
+    <div id="gacha-page" class="card hide">
+        <h2 id="txt-gacha-title">🔮 กาชาการ์ดสัตว์ทะเลสะสม</h2>
+        <p id="txt-gacha-desc">ใช้ 50 Eco Points เพื่อลุ้นรับการ์ดโมเดลสัตว์ทะเลระดับแรร์ (มีระดับ Normal จนถึงระดับตำนาน SSR!)</p>
+        
+        <div class="gacha-box">
+            <div id="gacha-display">🐙<br><span id="txt-gacha-idle">รอกดสุ่มการ์ด</span></div>
+        </div>
+        
+        <button onclick="rollGacha()" class="btn-gacha" style="margin-top: 15px;" id="btn-roll-act">🌟 กดสุ่มการ์ด (ใช้ 50 แต้ม)</button>
+        <button class="btn-secondary btn-back-lbl" onclick="back()">กลับหน้าหลัก</button>
+    </div>
 
-/* หน้าต่างแสดงผลลัพธ์กาชา */
-.gacha-result-box {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
+    <div id="collection-page" class="card hide">
+        <h2 id="txt-album-title">🎴 สมุดสะสมการ์ดทะเลใต้</h2>
+        <p><span id="txt-album-own">การ์ดที่คุณครอบครอง</span>: <span id="collection-count" style="font-weight:bold; color:#06d6a0;">0</span> / 8 <span id="txt-unit-card2">ใบ</span></p>
+        
+        <div id="collection-grid" class="collection-grid"></div>
+        
+        <button class="btn-secondary btn-back-lbl" style="margin-top: 20px;">กลับหน้าหลัก</button>
+    </div>
 
-.result-content {
-  background: linear-gradient(135deg, #1f4068, #162447);
-  padding: 30px;
-  border-radius: 20px;
-  border: 2px solid #ffd166;
-  width: 85%;
-  max-width: 320px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
-}
+    <div id="carbon" class="card hide">
+        <h2>✨ Smart Marine Glow</h2>
+        <p id="txt-carbon-desc">ร่วมปกป้องทะเลใต้! ผลิตภัณฑ์ Smart Marine Glow ทุก 1 ชิ้น ช่วยรีไซเคิลขยะพลาสติกและเศษอวนจากทะเลใต้ประมาณ 20 กรัม ลดก๊าซเรือนกระจก 0.05 kgCO₂e</p>
+        <button onclick="supportProject(this)" id="btn-support-act">สนับสนุนโครงการ รับ Eco Point +20</button>
+        <button class="btn-secondary btn-back-lbl" onclick="back()">กลับหน้าหลัก</button>
+    </div>
+</div>
 
-.btn-back {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-}
+<div id="customAlert" class="modal hide">
+    <div class="modal-content">
+        <p id="alertMessage" style="color: white; font-size: 16px; margin-bottom: 20px;"></p>
+        <button style="width: auto; padding: 10px 30px; margin: 0;" onclick="closeAlert()" id="btn-alert-ok">ตกลง</button>
+    </div>
+</div>
 
-/* โซนสมุดสะสมการ์ด (Grid) */
-.collection-section h3 {
-  font-size: 14px;
-  text-align: left;
-  margin-bottom: 15px;
-  color: #a8ff78;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-/* สไตล์ของการ์ดแต่ละใบ */
-.card-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 12px;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s;
-}
-
-/* สไตล์การ์ดที่ยังล็อกอยู่ */
-.card-item.locked {
-  filter: grayscale(1) brightness(0.6);
-}
-
-.card-item img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 8px;
-}
-
-.card-name {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.lock-status {
-  font-size: 10px;
-  color: #b0bec5;
-  margin-top: 4px;
-}
+<script src="./script.js"></script>

@@ -1,204 +1,276 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
 body {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+    background: linear-gradient(rgba(0, 32, 74, 0.65), rgba(0, 18, 50, 0.9)),
+                url("https://images.unsplash.com/photo-1544551763-46a013bb70d5") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* กล่องครอบการ์ดเกมทั้งหมด */
-.game-container {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  width: 100%;
-  max-width: 450px;
-  padding: 25px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  text-align: center;
+.wrap {
+    width: 100%;
+    padding: 20px;
 }
 
-/* ส่วนหัว */
+.card {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 35px 25px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
 .top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px 15px;
+    border-radius: 30px;
+    margin-bottom: 10px;
 }
 
-.emoji-group {
-  font-size: 24px;
+.lang-selector {
+    font-size: 13px;
+    font-weight: bold;
+    color: #aaa;
 }
 
-#lang-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-weight: bold;
+.lang-btn {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 5px;
 }
 
-#game-title {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  background: linear-gradient(to right, #ffffff, #a8ff78);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.lang-btn.active {
+    color: #ffd166;
+    background: rgba(255,209,102,0.2);
 }
 
-#game-subtitle {
-  font-size: 13px;
-  color: #cfd8dc;
-  line-height: 1.4;
-  margin-bottom: 15px;
+.bg-sound-btn {
+    font-size: 12px;
+    cursor: pointer;
 }
 
-.badge {
-  background: rgba(255, 209, 102, 0.15);
-  color: #ffd166;
-  display: inline-block;
-  padding: 6px 15px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255, 209, 102, 0.3);
+.rank-container {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px 15px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
-.eco-point-box {
-  background: #ffd166;
-  color: #0f2027;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 25px;
-  display: inline-block;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(255, 209, 102, 0.3);
+.story-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    padding-right: 10px;
+    margin-bottom: 20px;
 }
 
-/* ปุ่มสุ่มกาชา */
-.btn-gacha {
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-  border: none;
-  color: white;
-  width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 15px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-  transition: transform 0.2s;
+.story-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.story-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
 }
 
-.btn-gacha:active {
-  transform: scale(0.98);
+.chapter-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    background: rgba(0,0,0,0.2);
+    padding: 5px;
+    border-radius: 12px;
 }
 
-.collection-count {
-  font-size: 12px;
-  color: #b0bec5;
-  margin-top: 10px;
-  margin-bottom: 25px;
+.chapter-tabs button.tab-btn {
+    padding: 8px 5px;
+    margin: 0;
+    font-size: 12px;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
 }
 
-/* หน้าต่างแสดงผลลัพธ์กาชา */
-.gacha-result-box {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
+.chapter-tabs button.tab-btn.active {
+    background: linear-gradient(90deg, #00b4d8, #06d6a0);
+    color: white;
 }
 
-.result-content {
-  background: linear-gradient(135deg, #1f4068, #162447);
-  padding: 30px;
-  border-radius: 20px;
-  border: 2px solid #ffd166;
-  width: 85%;
-  max-width: 320px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 5px;
 }
 
-.btn-back {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 10px;
-  cursor: pointer;
+.item-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 10px;
+    text-align: center;
+    filter: grayscale(100%) opacity(40%);
 }
 
-/* โซนสมุดสะสมการ์ด (Grid) */
-.collection-section h3 {
-  font-size: 14px;
-  text-align: left;
-  margin-bottom: 15px;
-  color: #a8ff78;
+.item-card.unlocked {
+    filter: none;
+    border: 2px solid #ffd166;
+    background: rgba(255, 209, 102, 0.1);
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 5px;
+.item-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 5px;
 }
 
-/* สไตล์ของการ์ดแต่ละใบ */
-.card-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 12px;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s;
+.item-card .card-name {
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
 }
 
-/* สไตล์การ์ดที่ยังล็อกอยู่ */
-.card-item.locked {
-  filter: grayscale(1) brightness(0.6);
+.zone-title {
+    font-size: 16px;
+    color: #ffd166;
+    margin: 15px 0 5px 0;
+    border-left: 3px solid #06d6a0;
+    padding-left: 8px;
 }
 
-.card-item img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 8px;
+.gacha-box {
+    background: rgba(0,0,0,0.3);
+    border: 2px dashed #06d6a0;
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin: 20px 0;
+    font-size: 24px;
 }
 
-.card-name {
-  font-size: 12px;
-  font-weight: bold;
+h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff, #9bf6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.lock-status {
-  font-size: 10px;
-  color: #b0bec5;
-  margin-top: 4px;
+p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #e0f2fe;
+    margin-bottom: 15px;
+}
+
+.score-container {
+    margin: 15px 0;
+}
+
+.score {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd166, #f7b267);
+    color: #001d3d;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 209, 102, 0.4);
+}
+
+.score.pulse {
+    transform: scale(1.1);
+    box-shadow: 0 4px 25px rgba(255, 209, 102, 0.8);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 0;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(90deg, #00b4d8, #06d6a0);
+    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 214, 160, 0.5);
+    filter: brightness(1.1);
+}
+
+button.btn-secondary {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+button.btn-danger {
+    background: linear-gradient(90deg, #ff7096, #ff4d6d);
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+}
+
+button.btn-gacha {
+    background: linear-gradient(90deg, #f72585, #7209b7);
+    box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.hide {
+    display: none !important;
+}
+
+.bubble {
+    font-size: 50px;
+    margin-bottom: 5px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #001d3d;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 350px;
+    width: 90%;
+    border: 1px solid #00b4d8;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
